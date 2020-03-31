@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0mzndpt" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.3.5">
+  <bpmn:collaboration id="Collaboration_16nfl21">
+    <bpmn:participant id="Participant_1oi1inw" name="2307 Тестовое задание" processRef="SendCatFactProcess" />
+  </bpmn:collaboration>
+  <bpmn:process id="SendCatFactProcess" name="2307 Тестовое задание" isExecutable="true">
+    <bpmn:startEvent id="SendCatFactStart" name="SendCatFactStart" camunda:formKey="StartForm">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="inputEmail" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>SequenceFlow_11wionf</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="EndEvent_1h278e6">
+      <bpmn:incoming>SequenceFlow_0zr32z6</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="GetCatFacts" name="Получить факт о кошках" camunda:delegateExpression="${getCatFact}">
+      <bpmn:incoming>SequenceFlow_11wionf</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1ys4rgb</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_1vt7505" name="Получить случайную картинку" camunda:delegateExpression="${getRandomImage}">
+      <bpmn:incoming>SequenceFlow_1ys4rgb</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1xhyjv2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_153dr7l" name="Наложить информацию на картинку" camunda:delegateExpression="${generateImage}">
+      <bpmn:incoming>SequenceFlow_1xhyjv2</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1eelr7y</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sendTask id="Task_1mnssl5" name="Отправить картинку" camunda:delegateExpression="${sendImage}">
+      <bpmn:incoming>SequenceFlow_1eelr7y</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0zr32z6</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0zr32z6" sourceRef="Task_1mnssl5" targetRef="EndEvent_1h278e6" />
+    <bpmn:sequenceFlow id="SequenceFlow_1eelr7y" sourceRef="Task_153dr7l" targetRef="Task_1mnssl5" />
+    <bpmn:sequenceFlow id="SequenceFlow_1xhyjv2" sourceRef="Task_1vt7505" targetRef="Task_153dr7l" />
+    <bpmn:sequenceFlow id="SequenceFlow_1ys4rgb" sourceRef="GetCatFacts" targetRef="Task_1vt7505" />
+    <bpmn:sequenceFlow id="SequenceFlow_11wionf" sourceRef="SendCatFactStart" targetRef="GetCatFacts" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_16nfl21">
+      <bpmndi:BPMNShape id="Participant_1oi1inw_di" bpmnElement="Participant_1oi1inw" isHorizontal="true">
+        <dc:Bounds x="120" y="80" width="1130" height="250" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="SendCatFactStart">
+        <dc:Bounds x="172" y="202" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="146" y="245" width="89" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1h278e6_di" bpmnElement="EndEvent_1h278e6">
+        <dc:Bounds x="1192" y="202" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_0ewktg6_di" bpmnElement="GetCatFacts">
+        <dc:Bounds x="290" y="180" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1jyh69j_di" bpmnElement="Task_1vt7505">
+        <dc:Bounds x="510" y="180" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_03atcz1_di" bpmnElement="Task_153dr7l">
+        <dc:Bounds x="740" y="180" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="SendTask_09hkvu5_di" bpmnElement="Task_1mnssl5">
+        <dc:Bounds x="980" y="180" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0zr32z6_di" bpmnElement="SequenceFlow_0zr32z6">
+        <di:waypoint x="1080" y="220" />
+        <di:waypoint x="1192" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1eelr7y_di" bpmnElement="SequenceFlow_1eelr7y">
+        <di:waypoint x="840" y="220" />
+        <di:waypoint x="980" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1xhyjv2_di" bpmnElement="SequenceFlow_1xhyjv2">
+        <di:waypoint x="610" y="220" />
+        <di:waypoint x="740" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1ys4rgb_di" bpmnElement="SequenceFlow_1ys4rgb">
+        <di:waypoint x="390" y="220" />
+        <di:waypoint x="510" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_11wionf_di" bpmnElement="SequenceFlow_11wionf">
+        <di:waypoint x="208" y="220" />
+        <di:waypoint x="290" y="220" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
