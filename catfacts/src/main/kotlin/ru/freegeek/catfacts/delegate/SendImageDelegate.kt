@@ -19,8 +19,9 @@ class SendImageDelegate(val emailService: EmailService): JavaDelegate {
 
         val inputEmail: String = execution.getVariable("inputEmail").toString()
         val imageUrl: String = execution.getVariable("imageUrl").toString()
+        val catfact: String = execution.getVariable("catfact").toString()
 
-        emailService.sendImageWithAttachment(inputEmail, "2307cource",imageUrl)
+        emailService.sendImageWithAttachment(inputEmail, "2307cource", catfact, imageUrl)
     }
 
 }

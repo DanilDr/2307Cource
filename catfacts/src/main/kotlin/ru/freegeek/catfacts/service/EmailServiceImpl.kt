@@ -31,7 +31,7 @@ class EmailServiceImpl: EmailService {
     @Value("\${email.port}")
     private val EMAIL_PORT: Int? = null
 
-    override fun sendImageWithAttachment(email: String, theme: String, imageUrl: String) {
+    override fun sendImageWithAttachment(email: String, theme: String, catfact: String, imageUrl: String) {
 
         val prop: Properties = System.getProperties()
 
@@ -50,7 +50,7 @@ class EmailServiceImpl: EmailService {
             msg.subject = theme
 
             var messageBodyPart: BodyPart = MimeBodyPart()
-            messageBodyPart.setText(theme)
+            messageBodyPart.setText(theme + catfact)
 
             val multipart: Multipart = MimeMultipart()
             multipart.addBodyPart(messageBodyPart)

@@ -5,5 +5,5 @@ interface EmailService {
     /**
      * Отправка письма с приложением
      */
-    fun sendImageWithAttachment(email: String, theme: String, imageUrl: String)
+    fun sendImageWithAttachment(email: String, theme: String, catfact: String, imageUrl: String)
 }
